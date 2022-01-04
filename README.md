@@ -62,7 +62,7 @@ _Windows & Mac :_
 ### 4. Installer Composer 2.1.9
 _Linux & Windows :_
 
->Necessite d'[installer PHP](#php)
+>Nécessite d'[installer PHP](#php)
 ```shell
 $ sudo php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 $ sudo php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
@@ -84,11 +84,11 @@ $ composer update
 
 # Documentation Technique :
 ### Documentation API
-- Découvrez la documentation de l'API (Swagger) à ce [Lien](gaga)
+- Découvrez la documentation de l'API (phpDoc) à ce [Lien](docs/API/index.html)
 ### Documentation Android (JAVA)
 - Découvrez la documentation de l'Android (Javadoc) à ce [Lien](gaga)
 ### Documentation Site web (Symfony)
-- Découvrez la documentation du Symfony à ce [Lien](gaga)
+- Découvrez la documentation du Symfony(phpDoc) à ce [Lien](docs/matete/index.html)
 
 ### Version 
 - Composer : 2.1.9

@@ -1,17 +1,49 @@
 {# Zone Filtre#}
+ <style>
+        .shadoww{
+        -webkit-box-shadow: 1px 0px 15px 11px rgba(0,0,0,0.2); 
+        box-shadow: 1px 0px 15px 11px rgba(0,0,0,0.2);
+      }
+
+        ::-webkit-scrollbar{
+        width: 13px;
+        height: 13px;
+        }
+        ::-webkit-scrollbar-thumb{
+        background: #B3AFB3;
+        border-radius: 9px;
+        }
+        ::-webkit-scrollbar-thumb:hover{
+        background: #B3AFB3;
+        }
+        ::-webkit-scrollbar-track{
+        background: #FFFFFF;
+        border-radius: 9px;
+        box-shadow: inset 0px 0px 0px 0px #F0F0F0;
+        }
+      </style>
+
 <div class="z-30 w-3/12 h-screen  shadow mx-auto rounded-2xl bg-gray-50 absolute right-0" style="display: none;" id="filtres">
-    <div  class="z-30 relative mx-auto"><i class="flex justify-center text-3xl">Filtres</i></div>
-    
-    {% for categorie in ListeCategorie %}
-    <div>
-        <div class="mt-32 ml-20 bg-yellow-200 w-64 h-20  rounded-lg flex">
-                <div class="relative mx-auto mt-3">
-                    <input type="radio" name="test" >
-                    <label for="test" class="text-2xl">{{categorie.libelle}}</label>
+    <div  class="z-30 relative mx-auto "><i class="flex justify-center text-3xl">Filtre</i></div>
+
+        <div class="mt-40"style="overflow-y:scroll; height:600px;"> 
+            <form action="{{ path('appliqueFiltre') }}" method="post">       
+                {% for unFiltre in ListeFiltre %}
+                <div>
+                    <div class="mt-8 mb-12 ml-32 bg-yellow-200 w-64 h-20  rounded-lg flex shadoww">
+                            <div class="relative mx-auto mt-6">
+                                <input type="checkbox" name="check[]" value="{{ unFiltre.libelle }}" id="{{ unFiltre.libelle }}" {% for libelleFiltre in sessionFiltre %}{% if libelleFiltre ==  unFiltre.libelle %}checked{% endif %}{% endfor %}>
+                                <label class="ml-6 text-lg" for="{{ unFiltre.libelle }}">{{ unFiltre.libelle }}</label>
+                            </div>
+                    </div>
                 </div>
+            
+            {% endfor %}
         </div>
-    </div>
-    {% endfor %}
+            <div class="mt-10  flex mr-9 mx-auto">
+                <input type="submit" value="Valider" class="w-5/12  ml-40 p-2.5 cursor-pointer bg-yellow-300 border-yellow-900 rounded-lg">
+            </div>
+    </form>
 </div>
 
 

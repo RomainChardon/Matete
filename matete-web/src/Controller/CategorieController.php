@@ -21,7 +21,13 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'categorie_new', methods: ['GET','POST'])]
+    #[Route('/new', name: 'categorie_new', methods: ['GET','POST'])]    
+    /**
+     * new
+     *  Creer une catégorie
+     * @param  mixed $request
+     * @return Response
+     */
     public function new(Request $request): Response
     {
         $categorie = new Categorie();
@@ -42,7 +48,13 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'categorie_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'categorie_show', methods: ['GET'])]    
+    /**
+     * show
+     *  Afficher une catégorie
+     * @param  mixed $categorie
+     * @return Response
+     */
     public function show(Categorie $categorie): Response
     {
         return $this->render('categorie/show.html.twig', [
@@ -50,7 +62,14 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'categorie_edit', methods: ['GET','POST'])]
+    #[Route('/{id}/edit', name: 'categorie_edit', methods: ['GET','POST'])]    
+    /**
+     * edit
+     *  Modifier la catégorie
+     * @param  mixed $request
+     * @param  mixed $categorie
+     * @return Response
+     */
     public function edit(Request $request, Categorie $categorie): Response
     {
         $form = $this->createForm(CategorieType::class, $categorie);
@@ -68,7 +87,14 @@ class CategorieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'categorie_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'categorie_delete', methods: ['POST'])]    
+    /**
+     * delete
+     *  Supprimer une catégorie
+     * @param  mixed $request
+     * @param  mixed $categorie
+     * @return Response
+     */
     public function delete(Request $request, Categorie $categorie): Response
     {
         if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {

@@ -23,7 +23,15 @@ class ProducteurController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'producteur_new', methods: ['GET','POST'])]
+    #[Route('/new', name: 'producteur_new', methods: ['GET','POST'])]    
+    /**
+     * new
+     *  Creation d'un utilisateur Producteur 
+     * @param  mixed $request
+     * @param  mixed $userPass
+     * @param  mixed $producteurRepository
+     * @return Response
+     */
     public function new(Request $request,UserPasswordEncoderInterface $userPass, ProducteurRepository $producteurRepository): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -64,7 +72,13 @@ class ProducteurController extends AbstractController
         }
     }
 
-    #[Route('/{id}', name: 'producteur_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'producteur_show', methods: ['GET'])]    
+    /**
+     * show
+     * Afficher l'utilisateur
+     * @param  mixed $producteur
+     * @return Response
+     */
     public function show(Producteur $producteur): Response
     {
         return $this->render('producteur/show.html.twig', [
@@ -72,7 +86,15 @@ class ProducteurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'producteur_edit', methods: ['GET','POST'])]
+    #[Route('/{id}/edit', name: 'producteur_edit', methods: ['GET','POST'])]    
+    /**
+     * edit
+     *  Modifier info utilisateur
+     * @param  mixed $request
+     * @param  mixed $producteur
+     * @param  mixed $userPass
+     * @return Response
+     */
     public function edit(Request $request, Producteur $producteur, UserPasswordEncoderInterface $userPass): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -136,7 +158,15 @@ class ProducteurController extends AbstractController
         return $this->redirectToRoute("main_page");
     }
 
-    #[Route('/{id}/delete', name: 'producteur_delete')]
+    #[Route('/{id}/delete', name: 'producteur_delete')]    
+    /**
+     * delete
+     *  Supprimer son utilisateur
+     * @param  mixed $request
+     * @param  mixed $producteur
+     * @param  mixed $manager
+     * @return Response
+     */
     public function delete(Request $request, Producteur $producteur, EntityManagerInterface $manager): Response
     {   
         $manager->remove($producteur);
@@ -153,7 +183,13 @@ class ProducteurController extends AbstractController
 
     }
 
-    #[Route('/confirmationSupression/{id}', name: 'producteur_confDelete', methods: ['GET'])]
+    #[Route('/confirmationSupression/{id}', name: 'producteur_confDelete', methods: ['GET'])]    
+    /**
+     * confirmationDelete
+     *  Confirmation de suppression de l'utilisateur
+     * @param  mixed $producteur
+     * @return Response
+     */
     public function confirmationDelete(Producteur $producteur): Response
     {
         return $this->render('producteur/_confDelete_form.html.twig', [

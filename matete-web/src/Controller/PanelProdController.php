@@ -16,6 +16,5 @@ class PanelProdController extends AbstractController
     #[Route('/panel/prod/panier', name: 'panel_prod_panier')]
     public function index(): Response
     {
-        
     }
 }

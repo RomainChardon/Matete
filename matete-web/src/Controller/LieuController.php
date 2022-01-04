@@ -22,7 +22,14 @@ class LieuController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'lieu_new', methods: ['GET','POST'])]
+    #[Route('/new', name: 'lieu_new', methods: ['GET','POST'])]    
+    /**
+     * new
+     *  Ajouter un lieu
+     * @param  mixed $request
+     * @param  mixed $producteurRepository
+     * @return Response
+     */
     public function new(Request $request, ProducteurRepository $producteurRepository): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -32,7 +39,7 @@ class LieuController extends AbstractController
             $producteur = $producteurRepository->find($this->getUser());
             $coordoneeX = $request->request->get('CooX');
             $coordoneeY = $request->request->get('CooY');
-        // $coordonne = explode(',', $request->request->get('lieu'));
+            
             $lieu->setCooX($coordoneeX);
             $lieu->setCooY($coordoneeY);
             $lieu->setNom($request->request->get('Nomlieu'));
@@ -49,7 +56,13 @@ class LieuController extends AbstractController
         
     }
 
-    #[Route('/{id}', name: 'lieu_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'lieu_show', methods: ['GET'])]    
+    /**
+     * show
+     *  Afficher un lieu
+     * @param  mixed $lieu
+     * @return Response
+     */
     public function show(Lieu $lieu): Response
     {
         return $this->render('lieu/show.html.twig', [
@@ -57,7 +70,14 @@ class LieuController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'lieu_edit', methods: ['GET','POST'])]
+    #[Route('/{id}/edit', name: 'lieu_edit', methods: ['GET','POST'])]    
+    /**
+     * edit
+     *  Modifier un lieu
+     * @param  mixed $request
+     * @param  mixed $lieu
+     * @return Response
+     */
     public function edit(Request $request, Lieu $lieu): Response
     {
         $form = $this->createForm(LieuType::class, $lieu);
@@ -75,7 +95,14 @@ class LieuController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'lieu_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'lieu_delete', methods: ['POST'])]    
+    /**
+     * delete
+     *  Supprimer un lieu
+     * @param  mixed $request
+     * @param  mixed $lieu
+     * @return Response
+     */
     public function delete(Request $request, Lieu $lieu): Response
     {
         if ($this->isCsrfTokenValid('delete'.$lieu->getId(), $request->request->get('_token'))) {

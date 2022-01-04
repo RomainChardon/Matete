@@ -1,18 +1,80 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Panier{% endblock %}
-
 {% block body %}
-    <a href="{{ path('clearPanier') }}">Clear</a> <br>
+{% include "include/retour.html.twig" %}
+    <style>
+        .shadoww{
+            -webkit-box-shadow: 1px 0px 15px 11px rgba(0,0,0,0.2); 
+        box-shadow: 1px 0px 15px 11px rgba(0,0,0,0.2);
+        }
 
-    {% for detailPanier in panier %}
-        {{ detailPanier.annonce.libelleProduit }}
-        {{ detailPanier.annonce.creneauxDebut | date() }}
-        {{ detailPanier.annonce.creneauxFin | date() }}
-        {{ detailPanier.annonce.prixUnitaire }}
-        {{ detailPanier.lieu.cooX }}
-        {{ detailPanier.lieu.cooY }}
-        {{ detailPanier.lieu.nom }}
-        <br>
-    {% endfor %}
+        ::-webkit-scrollbar{
+        width: 13px;
+        height: 13px;
+        }
+        ::-webkit-scrollbar-thumb{
+        background: #B3AFB3;
+        border-radius: 9px;
+        }
+        ::-webkit-scrollbar-thumb:hover{
+        background: #B3AFB3;
+        }
+        ::-webkit-scrollbar-track{
+        background: #FFFFFF;
+        border-radius: 9px;
+        box-shadow: inset 0px 0px 0px 0px #F0F0F0;
+        }
+      </style>
+
+
+    {# Image de fond #}
+    <div class="h-screen w-screen bg-no-repeat bg-cover" style="background-image:url('{{ asset('image/Carte.png') }}')">
+    
+    </div>
+
+    <div id="popupMain" class="z-50  shadow bg-white w-4/6 h-5/6 top-0 right-0 absolute mr-80 mt-20 mr-8 rounded-2xl">
+        <div  class="z-30 scroll relative mx-auto mb-10 mt-10"><i class="flex justify-center text-3xl">Votre panier</i></div>
+                <div style="overflow-y:scroll; height:510px;">
+                  {% for detailPanier in panier %}
+                  {# Zone annonces #}
+                  <div  class="z-30 shadoww bg-yellow-200 w-6/6 h-32 mr-8 rounded-3xl mb-10 mt-6 ml-10">
+                      {# Libellé Produit#}
+                      <div class="flex inline">
+                        
+                        <div class="relative z-50  left-10 top-10  mb-2 "><i class="text-2xl flex justify-center " >{{ detailPanier.annonce.libelleProduit }}</i></div>
+
+                         {# Zone Date début #}
+                         
+                        <div class=" ml-32 mt-3"><a>Du : </a></div>
+                        <div class="relative z-40 bg-white w-3/12 h-6  rounded-full ml-10 mr-4 top-3 "><i class="flex justify-center">{{ detailPanier.annonce.creneauxDebut | date('d/m H:i') }}</i></div>
+                        
+                        {# Zone Date Fin #}
+                        <div class="mt-3"><a>Au : </a></div>
+                        <div class="relative z-40 bg-white w-3/12 h-6  rounded-full   top-3 "><i class="flex justify-center">{{ detailPanier.annonce.creneauxFin | date('d/m H:i') }}</i></div>
+                      </div> 
+                      
+                      {# Case lieu #}
+                      <div class="relative z-40 bg-white w-1/6 h-16  rounded-full   mb-4 mx-auto ">
+                      <div class=" ml-20 mt-3"><a>Lieu :</a></div>
+                      <div class=""><a class="flex justify-center">{{ detailPanier.lieu.nom }}</a></div>
+                      </div>
+                  </div>
+                  {% endfor %}  
+        </div>
+        {# Bouton vider le panier#}
+            <div class="mt-10 flex bottom  justify-center ">
+                <a href="{{ path('clearPanier') }}">
+                <button  class=" w-2/12 p-2.5  bg-yellow-300 border-yellow-900 rounded-lg font-bold"><a href="{{ path('clearPanier') }}">Vider le panier </a></button>
+            </div>  
+        
+        
+            
+                
+
+       
+        
+    </div>
+    
+    
+
 {% endblock %}

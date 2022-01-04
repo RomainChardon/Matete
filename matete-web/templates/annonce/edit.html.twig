@@ -98,9 +98,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-10 w-full flex justify-end mr-9">
-                        <input type="submit" id="miseEnLigne" name="miseEnLigne" value="Mettre en ligne" class="w-30 p-3 bg-green-500 rounded-lg cursor-pointer text-white">
-                    </div>
+                    {% if annonce.status == 'PasEnLigne' %}
+                        <div class="mt-10 w-full flex justify-end mr-9">
+                            <form action="{{ path('mettreEnLigne', {'id':annonce.id}) }}" method="post">
+                            <button type="submit" id="mettreEnLigne" name="mettre en ligne" value="Mettre en ligne" class="w-28 h-full p-2.5 bg-green-600 rounded-lg cursor-pointer text-white"> Mettre en Ligne</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="mt-10 w-full flex justify-end mr-9">
+                            <form action="{{ path('PasEnLigne', {'id':annonce.id}) }}" method="post">
+                            <button type="submit" id="¨PasEnLigne" name="mettre en hors-ligne" value="Mettre en hors-ligne" class="w-28 h-full p-2.5 bg-red-600 rounded-lg cursor-pointer text-white"> Mettre hors-ligne</button>
+                            </form>
+                        </div>
+                    {% endif %}
                 </div>
                 {# Info+ #}
                     <div class="mt-5">
