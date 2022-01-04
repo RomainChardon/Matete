@@ -85,13 +85,13 @@
                         {# Séparateur Milieu #}
                         <div class="mt-5 w-2/12 "></div>
                         {# Bouton submit "Confirmer" #}
-                        <div class="w-5/12 flex justify-center border">
-                            <div class="mt-10 w-5/12 flex border mr-9">
+                        <div class="w-5/12 flex justify-center ">
+                            <div class="mt-10 w-5/12 flex  mr-9">
                                 <input type="submit" id="editInfo" name="editInfo" value="Confirmer" class="w-28 p-2.5 bg-yellow-300 rounded-lg cursor-pointer">
                             </div>
 </form>
                             {# Bouton submit "Supprimer" #}
-                            <div class="mt-10 w-5/12 flex justify-between border">
+                            <div class="mt-10 w-5/12 flex justify-between">
                                 <form method="POST" action="{{ path('annonce_delete',{'id':annonce.id}) }}">
                                 <button type="submit" id="delAcc" name="delAcc" value="Supprimer" class="w-28 h-full p-2.5  bg-red-600 rounded-lg cursor-pointer text-white"> Supprimer</button>
                                 </form>
