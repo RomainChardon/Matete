@@ -84,11 +84,11 @@ $ composer update
 
 # Documentation Technique :
 ### Documentation API
-- Découvrez la documentation de l'API (Swagger) à ce [Lien](gaga)
+- Découvrez la documentation de l'API (PhpDoc) à ce [Lien](docs/API/index.html)
 ### Documentation Android (JAVA)
 - Découvrez la documentation de l'Android (Javadoc) à ce [Lien](gaga)
 ### Documentation Site web (Symfony)
-- Découvrez la documentation du Symfony à ce [Lien](gaga)
+- Découvrez la documentation du Symfony (PhpDoc) à ce [Lien](docs/matete/index.html))
 
 ### Version 
 - Composer : 2.1.9
