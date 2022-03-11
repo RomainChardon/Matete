@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: ./docker/database
+    container_name: matete_db_romain
+    environment:
+      MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
+      MYSQL_DATABASE: mateteRomain
+      MYSQL_USER: user
+      MYSQL_PASSWORD: AccessPlusC0mplique
+    restart: always
+    ports:
+      - "3356:3356"
+      # volumes:
+      # - ./docker/database/matete.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ./database/data:/var/lib/mysql 
+      # plus de bdd persistente
+    networks:
+      - symfony
+      
+  web:
+    build:
+      context: ./docker/apache
+    container_name: matete_apache_romain
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html/romain/matete/matete-web
+    ports:
+      - 8756:8756
+    networks:
+      - symfony
+    
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    container_name: matete_phpmyadmin_romain
+    links:
+      - db
+    restart: always
+    ports:
+      - 8755:8755
+    environment:
+      PMA_HOST: matete_db_romain
+      MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
+    networks:
+      - symfony
+
+networks:
+  symfony:
