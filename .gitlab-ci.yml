@@ -14,8 +14,6 @@ deploy_staging:
     name: staging
     url: lycee-gen-technologique.pro.dns-orange.fr
   script:
-    - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web &&
-    docker-compose down && git checkout deploiement-mathis && git pull origin deploiement-mathis && docker-compose build
-    --no-cache --pull && docker-compose up -d && exit"
+    - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout deploiement-mathis && git pull origin deploiement-mathis && docker-compose build --no-cache --pull && docker-compose up -d && exit"
   only:
     - deploiement-mathis
