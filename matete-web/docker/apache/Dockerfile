@@ -9,6 +9,6 @@ RUN apt-get update \
 && curl -sS https://get.symfony.com/cli/installer | bash \
 && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-WORKDIR /var/www/html/mathisb/matete/matete-web
+WORKDIR /var/www/html/matetesymfony
 CMD composer install ; symfony server:start
 EXPOSE 8025

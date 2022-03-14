@@ -6,12 +6,12 @@ services:
    container_name: mathismatetesymfony_db
    environment:
     MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
-    MYSQL_DATABASE: matete
+    MYSQL_DATABASE: mathismatete
     MYSQL_USER: user
     MYSQL_PASSWORD: AccessPlusC0mplique
    restart: always
    ports:
-      - 3307:3307
+      - 3307:3306
 # volumes:
 # - ./docker/database/matete.sql:/docker-entrypoint-initdb.d/init.sql
 # - ./database/data:/var/lib/mysql #plus de bdd persistente
@@ -26,7 +26,7 @@ services:
    volumes:
     - .:/var/www/html/matetesymfony
    ports:
-      - 8025:8025
+      - 8025:8000
    networks:
     - symfony
   phpmyadmin:
