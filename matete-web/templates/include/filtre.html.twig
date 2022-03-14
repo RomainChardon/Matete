@@ -27,18 +27,21 @@
     <div  class="z-30 relative mx-auto "><i class="flex justify-center text-3xl">Filtre</i></div>
 
         <div class="mt-40"style="overflow-y:scroll; height:600px;"> 
-            <form action="{{ path('appliqueFiltre') }}" method="post">       
-                {% for unFiltre in ListeFiltre %}
+            <form action="{{ path('appliqueFiltre') }}" method="post"> 
+            <pre>
+                {{ dump(ListeFiltre) }}
+            </pre>      
+                 {% for unFiltre in ListeFiltre %}
                 <div>
                     <div class="mt-8 mb-12 ml-32 bg-yellow-200 w-64 h-20  rounded-lg flex shadoww">
                             <div class="relative mx-auto mt-6">
-                                <input type="checkbox" name="check[]" value="{{ unFiltre.libelle }}" id="{{ unFiltre.libelle }}" {% for libelleFiltre in sessionFiltre %}{% if libelleFiltre ==  unFiltre.libelle %}checked{% endif %}{% endfor %}>
-                                <label class="ml-6 text-lg" for="{{ unFiltre.libelle }}">{{ unFiltre.libelle }}</label>
+                                <input type="checkbox" name="check[]" value="{{ unFiltre }}" id="{{ unFiltre }}" {% for libelleFiltre in sessionFiltre %}{% if libelleFiltre ==  unFiltre %}checked{% endif %}{% endfor %}>
+                                <label class="ml-6 text-lg" for="{{ unFiltre }}">{{ unFiltre }}</label>
                             </div>
                     </div>
                 </div>
             
-            {% endfor %}
+            {% endfor %} 
         </div>
             <div class="mt-10  flex mr-9 mx-auto">
                 <input type="submit" value="Valider" class="w-5/12  ml-40 p-2.5 cursor-pointer bg-yellow-300 border-yellow-900 rounded-lg">

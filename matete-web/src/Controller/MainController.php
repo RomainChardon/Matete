@@ -119,10 +119,7 @@ class MainController extends AbstractController
         foreach($annonceFiltre as $uneAnnonce){
             $id = $uneAnnonce->getId();
             $libelle = $uneAnnonce->getLibelleProduit();
-            $ListeFiltre[] = array(
-                'id' => $id,
-                'libelle'=> $libelle,
-            );
+            $ListeFiltre[$libelle] =$libelle;
         }
 
 
@@ -153,13 +150,16 @@ class MainController extends AbstractController
      * @param  mixed $lieuRepository
      * @return Response
      */
-    public function ajoutPanier(AnnonceRepository $annonceRepository, Annonce $annonce, LieuRepository $lieuRepository): Response
+    public function ajoutPanier(AnnonceRepository $annonceRepository, Annonce $annonce, LieuRepository $lieuRepository ,ProducteurRepository $producteurRepository): Response
     {
         $annon = $annonce;
         $idLieu = $annon->getLieu()->getId();
+        $idProducteur = $annon->getProducteur()->getId();
+        $producteur = $producteurRepository->findById($idProducteur);
         $lieu = $lieuRepository->findById($idLieu);
         $session = new Session();
         $session->start();
+        
 
         $panier = [];
         if ($session->get('panier') != NULL) {
@@ -170,8 +170,8 @@ class MainController extends AbstractController
         array_push($panier, [
             'annonce' => $annon,
             'lieu' => $lieu[0],
+            'producteur' => $producteur,
         ]);
-        
         $session->set('panier', $panier);
         
         $this->addFlash(
@@ -191,6 +191,7 @@ class MainController extends AbstractController
      */
     public function showPanier(AnnonceRepository $annonceRepository): Response
     {
+        
         $session = new Session();
         $session->start();
 
@@ -214,6 +215,20 @@ class MainController extends AbstractController
 
        return $this->redirectToRoute('main_page');
     }
+    #[Route('/panier/remove', name: 'removeArticle')] 
+    public function removeArticle(Request $request, AnnonceRepository $annonceRepository): Response
+    {
+        $session = new Session();
+        $session->start();
+
+        $idarticle= $request->request->get('article');
+        $article = $annonceRepository->findById($idarticle);
+
+        $this->get('session')->get('panier')->remove($article);
+
+       return $this->redirectToRoute('panier');
+    }
+
 
     #[Route('/filtre', name: 'appliqueFiltre')]    
     /**

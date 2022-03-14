@@ -36,6 +36,9 @@
         <div  class="z-30 scroll relative mx-auto mb-10 mt-10"><i class="flex justify-center text-3xl">Votre panier</i></div>
                 <div style="overflow-y:scroll; height:510px;">
                   {% for detailPanier in panier %}
+                  <pre>
+                      {{ dump(detailPanier) }}
+                  </pre>
                   {# Zone annonces #}
                   <div  class="z-30 shadoww bg-yellow-200 w-6/6 h-32 mr-8 rounded-3xl mb-10 mt-6 ml-10">
                       {# Libellé Produit#}
@@ -54,11 +57,25 @@
                       </div> 
                       
                       {# Case lieu #}
-                      <div class="relative z-40 bg-white w-1/6 h-16  rounded-full   mb-4 mx-auto ">
+                      <div class="relative z-40 bg-white w-1/6 h-16  rounded-full   mb-4 ml-32 ">
                       <div class=" ml-20 mt-3"><a>Lieu :</a></div>
                       <div class=""><a class="flex justify-center">{{ detailPanier.lieu.nom }}</a></div>
                       </div>
+                      {# Case lieu #}
+                      <div class="relative z-40 bg-yellow-300 w-1/6 h-16  rounded-full   mb-4 justify-center ">
+                      <div class=" ml-20 mt-3"><a>Mail :</a></div>
+                      <div class=""><a class="flex justify-center">{{ detailPanier.producteur[0].mail }}</a></div>
+
                   </div>
+                  {# Case lieu #}
+                      <div class="relative z-40 bg-yellow-300 w-1/6 h-16  rounded-full   mb-4 justify-center ">
+                      <div class=" ml-20 mt-3"><a>Mail :</a></div>
+                      <div class=""><a class="flex justify-center">{{ detailPanier.producteur[0].tel }}</a></div>
+
+                {# <div class="mt-10 flex bottom  justify-center ">
+                <a href="{{ path('removeArticle') }}">
+                <button  class=" w-2/12 p-2.5  bg-yellow-300 border-yellow-900 rounded-lg font-bold"><a href="{{ path('removeArticle') }}">Suppr Article </a></button> #}
+            </div>  
                   {% endfor %}  
         </div>
         {# Bouton vider le panier#}
