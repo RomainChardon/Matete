@@ -27,7 +27,7 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/var/www/html/romain/matete/matete-web
+      - .:/var/www/html/romain/matete/matete-web/public
     ports:
       - 8756:8000
     networks:
