@@ -29,7 +29,7 @@ services:
     volumes:
       - .:/var/www/html/romain/matete/matete-web
     ports:
-      - 8756:80
+      - 8756:8000
     networks:
       - symfony
     
