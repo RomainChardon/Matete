@@ -29,7 +29,7 @@ services:
     volumes:
       - .:/var/www/html/romain/matete/matete-web
     ports:
-      - 8756:80
+      - 8756:8756
     networks:
       - symfony
     
@@ -42,7 +42,7 @@ services:
       - db
     restart: always
     ports:
-      - 8755:8755
+      - 8755:80
     environment:
       PMA_HOST: matete_db_romain
       MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
