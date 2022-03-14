@@ -11,6 +11,6 @@ RUN apt-get update \
 && mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer 
-WORKDIR /var/www/html/romain/matete/matete-web
+WORKDIR /var/www/html/matete/
 CMD composer install ; symfony server:start
 EXPOSE 8756
