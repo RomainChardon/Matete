@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  db:
+   build:
+    context: ./docker/database
+   container_name: mathismatetesymfony_db
+   environment:
+    MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
+    MYSQL_DATABASE: mathismatete
+    MYSQL_USER: user
+    MYSQL_PASSWORD: AccessPlusC0mplique
+   restart: always
+   ports:
+      - 3307:3306
+# volumes:
+# - ./docker/database/matete.sql:/docker-entrypoint-initdb.d/init.sql
+# - ./database/data:/var/lib/mysql #plus de bdd persistente
+   networks:
+    - symfony
+  web:
+   build:
+    context: ./docker/apache
+   container_name: mathismatetesymfony_symfony
+   depends_on:
+    - db
+   volumes:
+    - .:/var/www/html/matetesymfony
+   ports:
+      - 8025:8000
+   networks:
+    - symfony
+  phpmyadmin:
+   depends_on:
+     - db
+   image: phpmyadmin/phpmyadmin
+   container_name: mathismatetesymfony_phpmyadmin
+   links:
+    - db
+   restart: always
+   ports:
+      - 8090:80
+   environment:
+    PMA_HOST: mathismatetesymfony_db
+    MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
+   networks:
+    - symfony
+networks:
+  symfony:
