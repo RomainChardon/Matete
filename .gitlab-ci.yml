@@ -22,5 +22,5 @@ Tests:
   image: php:8.0-apache
   stage: test
   script:
-    - php  bin/phpunit
+    - php  app/phpunit
   allow_failure: false
