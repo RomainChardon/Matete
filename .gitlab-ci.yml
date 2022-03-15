@@ -17,3 +17,9 @@ deploy_staging:
     - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout deploiement-mathis && git pull origin deploiement-mathis && docker-compose build --no-cache --pull && docker-compose up -d && exit"
   only:
     - deploiement-mathis
+
+Tests:
+  stage: Tests
+  script:
+    - php  bin/phpunit
+  allow_failure: false
