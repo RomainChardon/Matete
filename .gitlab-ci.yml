@@ -26,8 +26,6 @@ Tests:
   script:
     - apt-get update 
     - curl -sS https://getcomposer.org/installer
-    - php composer.phar install
-    - apt-get install -qq curl
     - cd matete-web
     - php bin/phpunit
   allow_failure: false
