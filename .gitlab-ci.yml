@@ -23,12 +23,11 @@ Tests:
   image: php:8.0-apache
   stage: test
   script:
-    - apt-get update -ygg
+    - apt-get update 
     - apt-get install yqq curl
     - curl -sS https://getcomposer.org/installer
     - php composer.phar install
     - apt-get install -qq curl
     - cd matete-web
-    - apt-get update
     - php bin/phpunit
   allow_failure: false
