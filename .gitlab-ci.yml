@@ -26,5 +26,5 @@ Tests:
   script:
     - cd matete-web
     - composer update
-    - php  vendor/bin/phpunit
+    - php bin/phpunit
   allow_failure: false
