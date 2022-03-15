@@ -9,7 +9,6 @@ before_script:
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - curl -sS https://getcomposer.org/installer
-  - php composer.phar install
    
 deploy_staging:
   type: deploy
