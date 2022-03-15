@@ -27,6 +27,6 @@ Tests:
   image: php:8.0-apache
   stage: test
   script:
+    - cd matete-web/
     - /usr/local/bin/phpunit matete-web/
-    - ls
   allow_failure: false
