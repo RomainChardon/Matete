@@ -1,14 +1,16 @@
 before_script:
   - apt-get update -qq
   - apt-get install -qq git
-  - apt-get install -qq curl
+  - apt-get install -qq git wget
   # Setup SSH deploy keys
   - 'which ssh-agent || ( apt-get install -qq openssh-client )'
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  - curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - wget https://phar.phpunit.de/phpunit-9.3.7.phar
+  - chmod +x phpunit-9.3.7.phar
+  - mv phpunit-9.3.7.phar /usr/local/bin/phpunit  
   
    
 deploy_staging:
@@ -25,7 +27,5 @@ Tests:
   image: php:8.0-apache
   stage: test
   script:
-    - cd matete-web
-    - composer update
-    - php bin/phpunit
+    - /usr/local/bin/phpunit matete-web/
   allow_failure: false
