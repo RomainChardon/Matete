@@ -20,7 +20,7 @@ deploy_staging:
     - deploiement-mathis
 
 Tests:
-  image: php:8.0-apache
+  image: phpunit
   stage: test
   script:
     - curl -sS https://getcomposer.org/installer
