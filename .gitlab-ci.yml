@@ -19,6 +19,7 @@ deploy_staging:
     - deploiement-mathis
 
 Tests:
+  image: php:8.0-apache
   stage: test
   script:
     - php  bin/phpunit
