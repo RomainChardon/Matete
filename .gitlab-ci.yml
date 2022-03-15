@@ -1,6 +1,7 @@
 before_script:
   - apt-get update -qq
   - apt-get install -qq git
+  - apt-get install yqq curl
   # Setup SSH deploy keys
   - 'which ssh-agent || ( apt-get install -qq openssh-client )'
   - eval $(ssh-agent -s)
@@ -24,7 +25,6 @@ Tests:
   stage: test
   script:
     - apt-get update 
-    - apt-get install yqq curl
     - curl -sS https://getcomposer.org/installer
     - php composer.phar install
     - apt-get install -qq curl
