@@ -20,7 +20,7 @@ deploy_staging:
 
 Tests:
   image: php:8.0-apache
-  stage: test
+  stage: Tests
   script:
-    - php  app/phpunit
+    - php  bin/phpunit
   allow_failure: false
