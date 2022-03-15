@@ -28,5 +28,5 @@ Tests:
   stage: test
   script:
     - cd matete-web/
-    - /usr/local/bin/phpunit matete-web/
+    - /usr/local/bin/phpunit ./
   allow_failure: false
