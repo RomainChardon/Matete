@@ -28,4 +28,5 @@ Tests:
   stage: test
   script:
     - /usr/local/bin/phpunit matete-web/
+    - ls
   allow_failure: false
