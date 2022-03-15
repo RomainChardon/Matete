@@ -20,7 +20,7 @@ deploy_staging:
     - deploiement-mathis
 
 Tests:
-  image: phpunit
+  image: php:8.0-apache
   stage: test
   script:
     - apt-get update -ygg
