@@ -3,6 +3,7 @@ namespace App\Tests;
 
 use App\Entity\Annonce;
 use PHPUnit\Framework\TestCase;
+require ('App\Entity\Annonce');
 
 class AnnonceTest extends TestCase
 {
