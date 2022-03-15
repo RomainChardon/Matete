@@ -23,7 +23,10 @@ Tests:
   image: phpunit
   stage: test
   script:
+    - apt-get update -ygg
+    - apt-get install yqq curl
     - curl -sS https://getcomposer.org/installer
+    - php composer.phar install
     - apt-get install -qq curl
     - cd matete-web
     - apt-get update
