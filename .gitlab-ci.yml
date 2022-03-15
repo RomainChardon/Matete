@@ -1,14 +1,13 @@
 before_script:
   - apt-get update -qq
   - apt-get install -qq git
-  - apt-get install -qq curl
   # Setup SSH deploy keys
   - 'which ssh-agent || ( apt-get install -qq openssh-client )'
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  - curl -sS https://getcomposer.org/installer
+  
    
 deploy_staging:
   type: deploy
@@ -24,6 +23,8 @@ Tests:
   image: php:8.0-apache
   stage: test
   script:
+    - curl -sS https://getcomposer.org/installer
+    - apt-get install -qq curl
     - cd matete-web
     - composer update
     - php bin/phpunit
