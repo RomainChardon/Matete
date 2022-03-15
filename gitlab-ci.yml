@@ -1,0 +1,5 @@
+Tests:
+  stage : Tests
+  script:
+    - php bin/phpunit
+  allow_failure: false
