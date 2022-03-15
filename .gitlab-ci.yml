@@ -20,7 +20,8 @@ deploy_staging:
 
 Tests:
   image: php:8.0-apache
-  stage: Tests
+  stage: test
   script:
+    - cd matete-web
     - php  bin/phpunit
   allow_failure: false
