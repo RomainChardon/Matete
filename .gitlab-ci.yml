@@ -23,6 +23,7 @@ Tests:
   stage: test
   script:
     - cd matete-web
+    - sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     - composer update
     - php  bin/phpunit
   allow_failure: false
