@@ -35,7 +35,6 @@ Tests:
       #- php bin/console doctrine:migration:migrate --no-interaction
       #- php bin/console doctrine:fixtures:load --no-interaction
   script:
-      - cd matete-web
       - php bin/phpunit
   allow_failure: true
 
