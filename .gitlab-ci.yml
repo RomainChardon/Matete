@@ -5,10 +5,10 @@ Tests:
     - name: mysql:5.7
       alias: mysql
   variables:
-     MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
-      MYSQL_DATABASE: mateteRomain
-      MYSQL_USER: user
-      MYSQL_PASSWORD: AccessPlusC0mplique
+    MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
+    MYSQL_DATABASE: mateteRomain
+    MYSQL_USER: user
+    MYSQL_PASSWORD: AccessPlusC0mplique
     DATABASE_URL: 'mysql://user:AccessPlusC0mplique@mysql:3306/mateteRomain'
   before_script:
     - apt-get update && apt-get install -y git libzip-dev npm nodejs
