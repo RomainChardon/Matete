@@ -14,10 +14,10 @@ Tests:
     - apt-get update && apt-get install -y git libzip-dev npm nodejs
     - curl -sSk https://getcomposer.org/installer | php --disable-tls && mv composer.phar /usr/local/bin/composer
     - docker-php-ext-install mysqli pdo pdo_mysql zip
-    - php bin/console doctrine:database:drop --force
-    - php bin/console doctrine:database:create
-    - php bin/console doctrine:migration:migrate --no-interaction
-    - php bin/console doctrine:fixtures:load --no-interaction
+    - symfony console doctrine:database:drop --force
+    - symfony console doctrine:database:create
+    - symfony console doctrine:migration:migrate --no-interaction
+    - symfony console doctrine:fixtures:load --no-interaction
     - composer install
     - npm install
   script:
