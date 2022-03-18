@@ -17,7 +17,7 @@ Tests:
   stage: test
   services:
     - name: mysql:5.7
-    alias: mysql
+      alias: mysql
   variables:
     MYSQL_ROOT_PASSWORD: pass_test
     MYSQL_DATABASE: mathismatete
