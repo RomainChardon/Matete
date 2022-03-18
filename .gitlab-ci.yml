@@ -22,6 +22,7 @@ deploy_staging:
     - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout master && git pull origin master && docker-compose build --no-cache --pull && docker-compose up -d && exit"
   only:
     - master
+
 Tests:
   image: php:8.0-apache
   stage: Tests
@@ -36,8 +37,7 @@ Tests:
     DATABASE_URL: 'mysql://matetetest:matetetest@mysql:3306/matetetest'
     before_script:
       - apt-get update && apt-get install -y git libzip-dev npm nodejs
-      - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar
-/usr/local/bin/composer
+      - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
       - docker-php-ext-install mysqli pdo pdo_mysql zip
       - composer install
       - npm install
