@@ -23,9 +23,9 @@ deploy_staging:
   only:
     - master
 
-test:
+Tests:
   image: php:8.0-apache
-  stage: Tests
+  stage: test
   services:
     - name: mysql:5.7
   alias: mysql
