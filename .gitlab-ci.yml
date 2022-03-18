@@ -19,13 +19,28 @@ deploy_staging:
     name: staging
     url: lycee-gen-technologique.pro.dns-orange.fr
   script:
-    - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout deploiement-mathis && git pull origin deploiement-mathis && docker-compose build --no-cache --pull && docker-compose up -d && exit"
+    - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout master && git pull origin master && docker-compose build --no-cache --pull && docker-compose up -d && exit"
   only:
-    - deploiement-mathis
-
+    - master
 Tests:
   image: php:8.0-apache
-  stage: test
+  stage: Tests
+  services:
+    - name: mysql:5.7
+  alias: mysql
+  variables:
+    MYSQL_ROOT_PASSWORD: pass_test
+    MYSQL_DATABASE: matetetest
+    MYSQL_USER: matetetest
+    MYSQL_PASSWORD: matetetest
+    DATABASE_URL: 'mysql://matetetest:matetetest@mysql:3306/matetetest'
+    before_script:
+      - apt-get update && apt-get install -y git libzip-dev npm nodejs
+      - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar
+/usr/local/bin/composer
+      - docker-php-ext-install mysqli pdo pdo_mysql zip
+      - composer install
+      - npm install
   script:
-    - /usr/local/bin/phpunit matete-web/
-  allow_failure: false
+    - php bin/phpunit
+  allow_failure: true
