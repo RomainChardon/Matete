@@ -32,7 +32,7 @@ Tests:
     - npm install
   script:
     - cd matete-web
-    - php bin/phpunit testdocx 
+    - php bin/phpunit testdox 
   allow_failure: true
   
 deploy_staging:
