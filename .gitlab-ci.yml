@@ -23,7 +23,7 @@ Tests:
     MYSQL_DATABASE: mathismatete
     MYSQL_USER: user
     MYSQL_PASSWORD: AccessPlusC0mplique
-    DATABASE_URL: 'mysql://user:AccessPlusC0mplique@mysql:3307/mathismatete'
+    DATABASE_URL: 'mysql://user:AccessPlusC0mplique@mysql:3306/mathismatete'
   before_script:
     - apt-get update && apt-get install -y git libzip-dev npm nodejs
     - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
@@ -32,7 +32,7 @@ Tests:
     - npm install
   script:
     - cd matete-web
-    - php bin/phpunit 
+    - php bin/phpunit testdocx 
   allow_failure: true
   
 deploy_staging:
