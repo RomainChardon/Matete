@@ -12,17 +12,6 @@ before_script:
   - chmod +x phpunit-9.3.7.phar
   - mv phpunit-9.3.7.phar /usr/local/bin/phpunit  
   
-   
-deploy_staging:
-  type: deploy
-  environment:
-    name: staging
-    url: lycee-gen-technologique.pro.dns-orange.fr
-  script:
-    - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout master && git pull origin master && docker-compose build --no-cache --pull && docker-compose up -d && exit"
-  only:
-    - master
-
 Tests:
   image: php:8.0-apache
   stage: test
@@ -44,3 +33,14 @@ Tests:
   script:
     - php bin/phpunit
   allow_failure: true
+  
+deploy_staging:
+  type: deploy
+  environment:
+    name: staging
+    url: lycee-gen-technologique.pro.dns-orange.fr
+  script:
+    - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout deploiement-mathis && git pull origin mathis-deploiement && docker-compose build --no-cache --pull && docker-compose up -d && exit"
+  only:
+    - master
+
