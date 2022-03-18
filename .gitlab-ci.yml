@@ -20,10 +20,10 @@ Tests:
         alias: mysql
   variables:
       MYSQL_ROOT_PASSWORD: pass_test
-      MYSQL_DATABASE: mathismatete
-      MYSQL_USER: user
-      MYSQL_PASSWORD: AccessPlusC0mplique
-      DATABASE_URL: 'mysql://mathismatete:AccessPlusC0mplique@mysql:3306/mathismatete'
+      MYSQL_DATABASE: matetetest
+      MYSQL_USER: matetetest
+      MYSQL_PASSWORD: matetetest
+      DATABASE_URL: 'mysql://matetetest:matetetest@mysql:3306/matetetest'
   before_script:
       - apt-get update && apt-get install -y git libzip-dev npm nodejs
       - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
@@ -38,14 +38,15 @@ Tests:
       - php bin/phpunit
   allow_failure: true
 
-  
+
+   
 deploy_staging:
   type: deploy
   environment:
     name: staging
     url: lycee-gen-technologique.pro.dns-orange.fr
   script:
-    - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout deploiement-mathis && git pull origin mathis-deploiement && docker-compose build --no-cache --pull && docker-compose up -d && exit"
+    - echo "coucou"
+  #  - ssh btssio@lycee-gen-technologique.pro.dns-orange.fr "cd /var/www/html/mathisb/matete/matete-web && docker-compose down && git checkout master && git pull origin master && docker-compose build --no-cache --pull && docker-compose up -d && exit"
   only:
     - master
-
