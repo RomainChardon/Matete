@@ -1,6 +1,6 @@
 Tests:
   image: php:8.0-apache
-  stage: Test
+  stage: test
   services:
     - name: mysql:5.7
       alias: mysql
