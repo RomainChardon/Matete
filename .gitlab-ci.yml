@@ -35,7 +35,7 @@ Tests:
       #- php bin/console doctrine:migration:migrate --no-interaction
       #- php bin/console doctrine:fixtures:load --no-interaction
   script:
-      - /usr/local/bin/phpunit testdox
+      - /usr/local/bin/phpunit 
   allow_failure: true
 
 
