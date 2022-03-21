@@ -4,7 +4,7 @@ Review:
   cache:
   paths:
   - vendor/
-  stages:
+  stage:
   - SecurityChecker
   - CodingStandards
   - deploy_staging
