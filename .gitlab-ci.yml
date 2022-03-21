@@ -4,7 +4,7 @@ Review:
   cache:
     paths:
       - vendor/
-      
+
   stage:
     - SecurityChecker
     - CodingStandards
@@ -20,21 +20,25 @@ Review:
     - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
   security-checker:
     stage: SecurityChecker
     script:
       - local-php-security-checker --path=./composer.lock
     allow_failure: false
+
   phpcs:
     stage: CodingStandards
     script:
       - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
     allow_failure: false
+
   phpstan:
     stage: CodingStandards
     script:
         - phpstan analyse ./src
     allow_failure: false
+    
   twig-lint:
     stage: CodingStandards
     script:
