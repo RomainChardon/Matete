@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.0-apache
 
 RUN apt-get update \
 && apt-get install -y \
@@ -12,5 +12,7 @@ RUN apt-get update \
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer 
 WORKDIR /var/www/html/matete/matete-web
-CMD composer install ; symfony server:start
+CMD composer install \
+&& symfony server:ca:install \
+&& symfony server:start 
 EXPOSE 8756
