@@ -1,9 +1,53 @@
+image: jakzal/phpqa:latest
+cache:
+  paths:
+    - vendor/
+stages:
+  - SecurityChecker
+  - CodingStandards
+  - deploy_staging
+
+before_script:
+  - composer update
+  - apt-get update -qq
+  - apt-get install -qq git
+  # Setup SSH deploy keys
+  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+security-checker:
+  stage: SecurityChecker
+  script:
+    - local-php-security-checker --path=./composer.lock
+  allow_failure: false
+
+phpcs:
+  stage: CodingStandards
+  script:
+    - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+  allow_failure: false
+
+phpstan:
+  stage: CodingStandards
+  script:
+    - phpstan analyse ./src
+  allow_failure: false
+
+twig-lint:
+  stage: CodingStandards
+  script:
+    - twig-lint lint ./templates
+  allow_failure: false
+
 Tests:
   image: php:8.0-apache
   stage: test
   services:
-      - name: mysql:5.7
-        alias: mysql
+    - name: mysql:5.7
+      alias: mysql
   variables:
       MYSQL_ROOT_PASSWORD: pass_test
       MYSQL_DATABASE: matetetest_test
@@ -12,6 +56,7 @@ Tests:
       DATABASE_URL: 'mysql://matetetest:matetetest@mysql:3306/matetetest'
   before_script:
       - cd ./matete-web
+      
       - apt-get update && apt-get install -y git libzip-dev npm nodejs
       - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
       - docker-php-ext-install mysqli pdo pdo_mysql zip
@@ -21,5 +66,13 @@ Tests:
       - php bin/console doctrine:database:create --env=test
       - php bin/console doctrine:migration:migrate --no-interaction --env=test
       - php bin/console doctrine:fixtures:load --no-interaction --env=test
+      # Setup SSH deploy keys
+      - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+      - eval $(ssh-agent -s)
+      - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+      - mkdir -p ~/.ssh
+      - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
       - php bin/phpunit
+
+
