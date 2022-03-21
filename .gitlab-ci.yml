@@ -11,7 +11,7 @@ Tests:
       MYSQL_PASSWORD: matetetest
       DATABASE_URL: 'mysql://matetetest:matetetest@mysql:3306/matetetest'
   before_script:
-      - cd matete-web
+      - cd ./matete-web
       - apt-get update && apt-get install -y git libzip-dev npm nodejs
       - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
       - docker-php-ext-install mysqli pdo pdo_mysql zip
@@ -22,5 +22,4 @@ Tests:
       - php bin/console doctrine:migration:migrate --no-interaction --env=test
       - php bin/console doctrine:fixtures:load --no-interaction --env=test
   script:
-      - cd matete-web
       - php bin/phpunit
