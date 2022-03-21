@@ -18,5 +18,6 @@ Tests:
     - composer install
     - npm install
   script:
+    - cd matete-web/
     - php bin/phpunit
   allow_failure: true
