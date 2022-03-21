@@ -6,15 +6,14 @@ Tests:
         alias: mysql
   variables:
       MYSQL_ROOT_PASSWORD: pass_test
-MYSQL_DATABASE: matetetest_test
+      MYSQL_DATABASE: matetetest_test
       MYSQL_USER: matetetest
       MYSQL_PASSWORD: matetetest
       DATABASE_URL: 'mysql://matetetest:matetetest@mysql:3306/matetetest'
   before_script:
       - cd /matete-web
       - apt-get update && apt-get install -y git libzip-dev npm nodejs
-      - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv
-composer.phar /usr/local/bin/composer
+      - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
       - docker-php-ext-install mysqli pdo pdo_mysql zip
       - composer install
       - npm install
