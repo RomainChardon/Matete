@@ -2,42 +2,44 @@ Review:
   #ajout du SAST
   image: jakzal/phpqa:latest
   cache:
-  paths:
-  - vendor/
+    paths:
+      - vendor/
+      
   stage:
-  - SecurityChecker
-  - CodingStandards
-  - deploy_staging
+    - SecurityChecker
+    - CodingStandards
+    - deploy_staging
+
   before_script:
-  - composer update
-  - apt-get update -qq
-  - apt-get install -qq git
-  # Setup SSH deploy keys
-  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
-  - eval $(ssh-agent -s)
-  - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
-  - mkdir -p ~/.ssh
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - composer update
+    - apt-get update -qq
+    - apt-get install -qq git
+    # Setup SSH deploy keys
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY" | base64 -d)
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   security-checker:
-  stage: SecurityChecker
-  script:
-  - local-php-security-checker --path=./composer.lock
-  allow_failure: false
+    stage: SecurityChecker
+    script:
+      - local-php-security-checker --path=./composer.lock
+    allow_failure: false
   phpcs:
-  stage: CodingStandards
-  script:
-  - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
-  allow_failure: false
+    stage: CodingStandards
+    script:
+      - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+    allow_failure: false
   phpstan:
-  stage: CodingStandards
-  script:
-  - phpstan analyse ./src
-  allow_failure: false
+    stage: CodingStandards
+    script:
+        - phpstan analyse ./src
+    allow_failure: false
   twig-lint:
-  stage: CodingStandards
-  script:
-  - twig-lint lint ./templates
-  allow_failure: false
+    stage: CodingStandards
+    script:
+      - twig-lint lint ./templates
+    allow_failure: false
 
 Tests:
   image: php:8.0-apache
