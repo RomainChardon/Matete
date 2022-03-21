@@ -1,48 +1,27 @@
-version: '3.8'
-services:
-  db:
-   build:
-    context: ./docker/database
-   container_name: mathismatetesymfony_db
-   environment:
-    MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
-    MYSQL_DATABASE: mathismatete
-    MYSQL_USER: user
-    MYSQL_PASSWORD: AccessPlusC0mplique
-   restart: always
-   ports:
-      - 3307:3306
-# volumes:
-# - ./docker/database/matete.sql:/docker-entrypoint-initdb.d/init.sql
-# - ./database/data:/var/lib/mysql #plus de bdd persistente
-   networks:
-    - symfony
-  web:
-   build:
-    context: ./docker/apache
-   container_name: mathismatetesymfony_symfony
-   depends_on:
-    - db
-   volumes:
-    - .:/var/www/html/matetesymfony
-   ports:
-      - 8025:8000
-   networks:
-    - symfony
-  phpmyadmin:
-   depends_on:
-     - db
-   image: phpmyadmin/phpmyadmin
-   container_name: mathismatetesymfony_phpmyadmin
-   links:
-    - db
-   restart: always
-   ports:
-      - 8090:80
-   environment:
-    PMA_HOST: mathismatetesymfony_db
-    MYSQL_ROOT_PASSWORD: AccessPlusC0mplique
-   networks:
-    - symfony
-networks:
-  symfony:
+Tests:
+  image: php:8.0-apache
+  stage: test
+  services:
+      - name: mysql:5.7
+        alias: mysql
+  variables:
+      MYSQL_ROOT_PASSWORD: pass_test
+MYSQL_DATABASE: matetetest_test
+      MYSQL_USER: matetetest
+      MYSQL_PASSWORD: matetetest
+      DATABASE_URL: 'mysql://matetetest:matetetest@mysql:3306/matetetest'
+  before_script:
+      - cd /matete-web
+      - apt-get update && apt-get install -y git libzip-dev npm nodejs
+      - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv
+composer.phar /usr/local/bin/composer
+      - docker-php-ext-install mysqli pdo pdo_mysql zip
+      - composer install
+      - npm install
+      - php bin/console doctrine:database:drop --force --env=test
+      - php bin/console doctrine:database:create --env=test
+      - php bin/console doctrine:migration:migrate --no-interaction --env=test
+      - php bin/console doctrine:fixtures:load --no-interaction --env=test
+  script:
+      - cd /matete-web
+      - php bin/phpunit
