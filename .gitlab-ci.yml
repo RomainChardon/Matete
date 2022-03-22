@@ -5,7 +5,7 @@ cache:
   paths:
     - vendor/
 
-stage:
+stages:
   - SecurityChecker
   - CodingStandards
   - test
