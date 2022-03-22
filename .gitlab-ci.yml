@@ -8,7 +8,6 @@ cache:
 stage:
   - SecurityChecker
   - CodingStandards
-  - deploy_staging
 
 before_script:
   - composer update
