@@ -167,7 +167,7 @@ class ProducteurController extends AbstractController
      * @param  mixed $manager
      * @return Response
      */
-    public function delete(Request $request, Producteur $producteur, EntityManagerInterface $manager): Response
+    public function delete(Producteur $producteur, EntityManagerInterface $manager): Response
     {   
         $manager->remove($producteur);
         $manager->flush();

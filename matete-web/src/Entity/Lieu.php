@@ -17,7 +17,7 @@ class Lieu
 * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idLieu;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -57,7 +57,7 @@ class Lieu
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idLieu;
     }
 
     public function getCooX(): ?string

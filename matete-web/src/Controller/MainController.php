@@ -30,62 +30,51 @@ class MainController extends AbstractController
      * @param  mixed $categorieRepository
      * @return Response
      */
-    public function index(Request $request, AnnonceRepository $annonceRepository, LieuRepository $lieuRepository, ProducteurRepository $producteurRepository, CategorieRepository $categorieRepository): Response
+    public function index(Request $request, AnnonceRepository $annonceRepository, LieuRepository $lieuRepository, ProducteurRepository $producteurRepository): Response
     {
         $session = new Session();
         $session->start();
-
         $response = new Response();
         $cookie = new HttpFoundationCookie('visite', 'true' ,time() + (365 * 24 * 60 * 60));
         $response->headers->setCookie($cookie);
         $response->sendHeaders();
         $cookie = $request->cookies->get('visite');
-
         $user = $this->getUser();
         $lieux = $lieuRepository->findAll();
         $annonceFiltre = $annonceRepository->findAll();
-
         // MAPS
         $listeLieux = [];
         foreach ($lieux as $lieu) {
             $name = $lieu->getNom();
             $cooX = $lieu->getCooX();
             $cooY = $lieu->getCooY();
-            
             $annonceListe = [];
             foreach ($lieu->getAnnonce() as $annonce) {
                 $libelle = $annonce->getLibelleProduit();
-                $id = $annonce->getId();
-
+                $idAnnonce = $annonce->getId();
                 if ($session->get('filtre') != null) {
                     foreach ($session->get('filtre') as $filtre) {
                         if ($filtre == $libelle) {
                             $annonceListe[] = array(
                                 'libelle' => $libelle,
-                                'id' => $id,
+                                'id' => $idAnnonce,
                             );
                         }
                     }
                 } else {
                     $annonceListe[] = array(
                         'libelle' => $libelle,
-                        'id' => $id,
+                        'id' => $idAnnonce,
                     );
-                }
-
-                
+                }    
             }
-            
             $listeLieux[] = array(
                 'name' => $name,
                 'cooX'=> $cooX,
                 'cooY' => $cooY,
                 'annonce' => $annonceListe,
-            );
-                
+            );  
         }
-
-
         if ($user != NULL) {
             $producteur = $producteurRepository->find($this->getUser());
                 // Afficher le tableau des annonces
@@ -98,11 +87,10 @@ class MainController extends AbstractController
                 $quantite = $annonce->getQuantite();
                 $status = $annonce->getStatus();
                 $dateMiseEnLigne = $annonce->getDateMiseEnLigne();
-                $id = $annonce->getId();
+                $idAnnonce = $annonce->getId();
                 $categorie = $annonce->getCategorie();
-                    
                     $listeDesAnnonces[] = array(
-                        'id' => $id,
+                        'id' => $idAnnonce,
                         'libelle' => $libelle,
                         'cDebut' => $creneauxDebut,
                         'cFin' => $creneauxFin,
@@ -117,12 +105,10 @@ class MainController extends AbstractController
         // Liste filtre
         $ListeFiltre=[];
         foreach($annonceFiltre as $uneAnnonce){
-            $id = $uneAnnonce->getId();
+            $idAnnonce = $uneAnnonce->getId();
             $libelle = $uneAnnonce->getLibelleProduit();
             $ListeFiltre[$libelle] =$libelle;
         }
-
-
         if($user == null){
             return $this->render('main/index.html.twig', [
                 'listeLieux' => $listeLieux,
@@ -150,7 +136,7 @@ class MainController extends AbstractController
      * @param  mixed $lieuRepository
      * @return Response
      */
-    public function ajoutPanier(AnnonceRepository $annonceRepository, Annonce $annonce, LieuRepository $lieuRepository ,ProducteurRepository $producteurRepository): Response
+    public function ajoutPanier( Annonce $annonce, LieuRepository $lieuRepository ,ProducteurRepository $producteurRepository): Response
     {
         $annon = $annonce;
         $idLieu = $annon->getLieu()->getId();
@@ -189,7 +175,7 @@ class MainController extends AbstractController
      * @param  mixed $annonceRepository
      * @return Response
      */
-    public function showPanier(AnnonceRepository $annonceRepository): Response
+    public function showPanier(): Response
     {
         
         $session = new Session();
@@ -239,7 +225,6 @@ class MainController extends AbstractController
      */
     public function appliqueFiltre(Request $request): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
         $session = new Session();
 
         $filtre = $request->request->get('check');

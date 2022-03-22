@@ -14,10 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdministrateurController extends AbstractController
 {
     #[Route('/', name: 'administrateur_index', methods: ['GET'])]
-    public function index(AdministrateurRepository $administrateurRepository): Response
+    public function index(AdministrateurRepository $adminRepository): Response
     {
         return $this->render('administrateur/index.html.twig', [
-            'administrateurs' => $administrateurRepository->findAll(),
+            'administrateurs' => $adminRepository->findAll(),
         ]);
     }
 

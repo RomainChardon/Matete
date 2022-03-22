@@ -17,7 +17,7 @@ class Commande
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idCommande;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -36,7 +36,7 @@ class Commande
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idCommande;
     }
 
     public function getDateCommande(): ?\DateTimeImmutable

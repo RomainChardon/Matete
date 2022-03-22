@@ -17,7 +17,7 @@ class Annonce
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idAnnonce;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -81,7 +81,7 @@ class Annonce
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idAnnonce;
     }
 
     public function getCreneauxDebut(): ?\DateTimeImmutable

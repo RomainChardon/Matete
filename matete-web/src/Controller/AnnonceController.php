@@ -40,7 +40,7 @@ class AnnonceController extends AbstractController
      * @param  mixed $lieuRepository
      * @return Response
      */
-    public function new(Request $request, CategorieRepository $categorieRepository, ProducteurRepository $producteurRepository, AnnonceRepository $annonceRepository, LieuRepository $lieuRepository): Response
+    public function new(Request $request, CategorieRepository $categorieRepository, ProducteurRepository $producteurRepository,LieuRepository $lieuRepository): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         
@@ -51,11 +51,11 @@ class AnnonceController extends AbstractController
 
         foreach ($lieux->getLieux() as $lieu) {
             $nom = $lieu->getNom();
-            $id = $lieu->getId();
+            $idAnnonce = $lieu->getId();
                 
                 $listelieux[] = array(
                     'nom' => $nom,
-                    'id' => $id,
+                    'id' => $idAnnonce,
                 );
         }
         
@@ -117,10 +117,9 @@ class AnnonceController extends AbstractController
      * @param  mixed $producteurRepository
      * @return Response
      */
-    public function edit(Request $request, Annonce $annonce , CategorieRepository $categorieRepository , LieuRepository $lieuRepository , ProducteurRepository $producteurRepository): Response
+    public function edit(Request $request, Annonce $annonce , CategorieRepository $categorieRepository, ProducteurRepository $producteurRepository): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $categories = $categorieRepository->findById($request->request->get('categorie'));
         
         
         
@@ -129,11 +128,11 @@ class AnnonceController extends AbstractController
 
         foreach ($lieux->getLieux() as $lieu) {
             $nom = $lieu->getNom();
-            $id = $lieu->getId();
+            $idAnnonce = $lieu->getId();
                 
                 $listelieux[] = array(
                     'nom' => $nom,
-                    'id' => $id,
+                    'id' => $idAnnonce,
                 );
         }
 
@@ -159,12 +158,12 @@ class AnnonceController extends AbstractController
 
         //Edition Créneaux Début
         if ($request->request->get('cDebut') != null) {
-            $annonce->setCreneauxDebut($creneauxDebut = new DateTimeImmutable($request->request->get('cDebut')));
+            $annonce->setCreneauxDebut(new DateTimeImmutable($request->request->get('cDebut')));
         }
 
         //Edition Créneaux Fin
         if ($request->request->get('cFin') != null) {
-            $annonce->setCreneauxDebut($creneauxFin = new DateTimeImmutable($request->request->get('cFin')));
+            $annonce->setCreneauxDebut(new DateTimeImmutable($request->request->get('cFin')));
         }
 
         //Edition Catégorie
@@ -211,7 +210,7 @@ class AnnonceController extends AbstractController
      * @param  mixed $annonce
      * @return Response
      */
-    public function mettreEnLigne(Request $request, Annonce $annonce): Response
+    public function mettreEnLigne(Annonce $annonce): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $annonce->setStatus('EnLigne');
@@ -230,7 +229,7 @@ class AnnonceController extends AbstractController
      * @param  mixed $annonce
      * @return Response
      */
-    public function PasEnLigne(Request $request, Annonce $annonce): Response
+    public function PasEnLigne(Annonce $annonce): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $annonce->setStatus('PasEnLigne');

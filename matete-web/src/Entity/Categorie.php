@@ -17,7 +17,7 @@ class Categorie
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idCategorie;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -36,7 +36,7 @@ class Categorie
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idCategorie;
     }
 
     public function getLibelle(): ?string

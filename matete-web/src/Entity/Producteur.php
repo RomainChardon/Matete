@@ -19,7 +19,7 @@ class Producteur implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idProducteur;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -80,7 +80,7 @@ class Producteur implements UserInterface
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idProducteur;
     }
 
     public function getNom(): ?string

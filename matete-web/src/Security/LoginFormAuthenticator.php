@@ -46,12 +46,15 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         ]);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    /*
+    * phpcs:disable
+    */
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response // phpcs:disable
     {
         return new RedirectResponse('/');
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response // phpcs:disable
     {
         return new RedirectResponse('/login');
     }

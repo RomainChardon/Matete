@@ -15,7 +15,7 @@ class Administrateur
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $idAdmin;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -29,7 +29,7 @@ class Administrateur
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->idAdmin;
     }
 
     public function getStatus(): ?string
